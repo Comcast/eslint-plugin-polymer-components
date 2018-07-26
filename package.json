@@ -2,6 +2,9 @@
   "name": "eslint-plugin-polymer-components",
   "version": "1.0.1",
   "description": "Polymer specific linting rules for ESLint",
+  "repository": "git@github.com:Comcast/eslint-plugin-polymer-components.git",
+  "bugs": "https://github.com/Comcast/eslint-plugin-polymer-components/issues",
+  "homepage": "https://github.com/Comcast/eslint-plugin-polymer-components",
   "keywords": [
     "eslint",
     "eslintplugin",
