@@ -8,13 +8,14 @@ When creating Polymer components, it's more convenient to always follow the same
 This rule ensures that the following order must be followed inside Polymer components:
 
   1. `is`,
-  2. `behaviors`,
-  3. `properties`,
-  4. `observers`,
-  5. `listeners`,
-  6. lifecycle methods: `created`, `ready`, `attached`, `detached`, `attributeChanged` (in this order)
-  7. custom private methods (prefixed with `_`),
-  8. custom public methods
+  2. `extends`,
+  3. `behaviors`,
+  4. `properties`,
+  5. `observers`,
+  6. `listeners`,
+  7. lifecycle methods: `created`, `ready`, `attached`, `detached`, `attributeChanged` (in this order)
+  8. custom private methods (prefixed with `_`),
+  9. custom public methods
 
 It also ensures that the configuration objects for Polymer properties begin with the property `type`
 
@@ -32,6 +33,8 @@ Polymer({
   created: function() {...},
 
   detached: function() {...},
+
+  extends: "li",
 
   is: "incorrectly-sorted",
 
@@ -53,6 +56,8 @@ Examples of **correct** code for this rule:
 Polymer({
 
   is: "correctly-sorted",
+
+  extends: "li",
 
   behaviors: [...],
 
