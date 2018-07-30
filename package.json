@@ -13,6 +13,7 @@
   "author": "Chris Tryens, Comcast",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint './**/*.js' --quiet",
     "test": "mocha tests --recursive"
   },
   "dependencies": {
