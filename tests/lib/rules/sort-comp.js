@@ -19,77 +19,431 @@ var ruleTester = new RuleTester();
 ruleTester.run("sort-comp", rule, {
   valid: [
     {
-      code: "Polymer({is: '', extends: 'li', behaviors: [], properties: {a: {type: Boolean, readOnly: true}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      readOnly: true\n" +
+        "    }\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
     },
     {
-      code: "Polymer({is: '', extends: 'li', behaviors: [], properties: {a: {type: Boolean, readOnly: true}}, observers: [], listeners: {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {},});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      readOnly: true\n" +
+        "    }\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
     },
     {
-      code: "Polymer({is: '', extends: 'li', behaviors: [], properties: {a: {type: Boolean, readOnly: true}}, observers: [], listeners: {}, a: function() {}, b: function() {},});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      readOnly: true\n" +
+        "    }\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
     },
     {
-      code: "Polymer({is: '', extends: 'li', behaviors: [], properties: {a: {type: Boolean, readOnly: true}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {},});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      readOnly: true\n" +
+        "    }\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        " });",
     },
     {
-      code: "Polymer({is: '', extends: 'li', _a: function() {}, _b: function() {}, a: function() {}, b: function() {},});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
     },
 
   ],
   invalid: [
     // Polymer-specific keys not in standard order
     {
-      code: "Polymer({extends: 'li', is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
-      output: "Polymer({is: '', extends: 'li', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  extends: 'li',\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  extends: 'li',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'is' should be before 'extends'.",
       ],
     },
     // Polymer-specific keys not in standard order
     {
-      code: "Polymer({ is: '', properties: {}, behaviors: [], observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
-      output: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  properties: {},\n" +
+        "  behaviors: [],\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'behaviors' should be before 'properties'.",
       ],
     },
     // Private keys before public keys
     {
-      code: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, a: function() {}, _a: function() {}});",
-      output: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, a: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  a: function() {},\n" +
+        "  _a: function() {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  a: function() {},\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. '_a' should be before 'a'.",
       ],
     },
     // Non-Polymer-specific keys not alphabetized
     {
-      code: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, b: function() {}, a: function() {}});",
-      output: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  b: function() {},\n" +
+        "  a: function() {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
       ],
     },
     // Polymer lifecycle callbacks not in the order in which they're called
     {
-      code: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, attached: function() {}, created: function() {}, ready: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
-      output: "Polymer({ is: '', behaviors: [], properties: {}, observers: [], listeners: {}, created: function() {}, attached: function() {}, ready: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  attached: function() {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'created' should be before 'attached'.",
       ],
     },
-
     // Polymer property configurations should have "type" as their first key
     {
-      code: "Polymer({is: '', behaviors: [], properties: {a: {readOnly: true, type: Boolean}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
-      output: "Polymer({is: '', behaviors: [], properties: {a: {type: Boolean, readOnly: true}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      readOnly: true,\n" +
+        "      type: Boolean,\n" +
+        "    },\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      readOnly: true,\n" +
+        "    },\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
       errors: [
         "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'type' should be before 'readOnly'.",
       ],
     },
-
     // Correctly sorts complex property keys
     {
-      code: "Polymer({is: '', behaviors: [], properties: {a: {notify: true, value: false, readOnly: true, type: Boolean, reflectToAttribute: true}, c: {type: Boolean, computed: '_computeC(b)', value: false, readOnly: true, reflectToAttribute: true, notify: true}, b: {computed: '_computeB(a)', notify: true, readOnly: true, reflectToAttribute: true, value: false, type: Boolean}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
-      output: "Polymer({is: '', behaviors: [], properties: {a: {type: Boolean, notify: true, readOnly: true, reflectToAttribute: true, value: false}, b: {type: Boolean, computed: '_computeB(a)',notify: true, readOnly: true, reflectToAttribute: true, value: false}, c: {type: Boolean, computed: '_computeC(b)', notify: true, readOnly: true, reflectToAttribute: true, value: false}}, observers: [], listeners: {}, created: function() {}, ready: function() {}, attached: function() {}, detached: function() {}, attributeChanged: function() {}, _a: function() {}, _b: function() {}, a: function() {}, b: function() {}});",
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      notify: true,\n" +
+        "      value: false,\n" +
+        "      readOnly: true,\n" +
+        "      type: Boolean,\n" +
+        "      reflectToAttribute: true,\n" +
+        "    },\n" +
+        "    c: {\n" +
+        "      type: Boolean,\n" +
+        "      computed: '_computeC(b)',\n" +
+        "      value: false,\n" +
+        "      readOnly: true,\n" +
+        "      reflectToAttribute: true,\n" +
+        "      notify: true,\n" +
+        "    },\n" +
+        "    b: {\n" +
+        "      computed: '_computeB(a)',\n" +
+        "      notify: true,\n" +
+        "      readOnly: true,\n" +
+        "      reflectToAttribute: true,\n" +
+        "      value: false,\n" +
+        "      type: Boolean,\n" +
+        "    },\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {\n" +
+        "    a: {\n" +
+        "      type: Boolean,\n" +
+        "      notify: true,\n" +
+        "      readOnly: true,\n" +
+        "      reflectToAttribute: true,\n" +
+        "      value: false,\n" +
+        "    },\n" +
+        "    b: {\n" +
+        "      type: Boolean,\n" +
+        "      computed: '_computeB(a)',\n" +
+        "      notify: true,\n" +
+        "      readOnly: true,\n" +
+        "      reflectToAttribute: true,\n" +
+        "      value: false,\n" +
+        "    },\n" +
+        "    c: {\n" +
+        "      type: Boolean,\n" +
+        "      computed: '_computeC(b)',\n" +
+        "      notify: true,\n" +
+        "      readOnly: true,\n" +
+        "      reflectToAttribute: true,\n" +
+        "      value: false,\n" +
+        "    },\n" +
+        "  },\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  _a: function() {},\n" +
+        "  _b: function() {},\n" +
+        "  a: function() {},\n" +
+        "  b: function() {}\n" +
+        "});",
       errors: 6,
     },
   ],
