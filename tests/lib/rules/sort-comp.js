@@ -113,7 +113,6 @@ ruleTester.run("sort-comp", rule, {
         "  b: function() {}\n" +
         "});",
     },
-
   ],
   invalid: [
     // Polymer-specific keys not in standard order
@@ -445,6 +444,316 @@ ruleTester.run("sort-comp", rule, {
         "  b: function() {}\n" +
         "});",
       errors: 6,
+    },
+    // Comments should be moved along with their corresponding properties when both have comments
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  // Comments for b\n" +
+        "  b: function(bArg) {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "  // Comments for b\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    // Comments should be moved along with their corresponding properties when one has JSDoc and the other has a standard comment
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    // JSDocs should be moved along with their corresponding properties when both have JSDocs
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "  /**\n" +
+        "    * Describe method a\n" +
+        "    * @param {String} aArg method a arg\n" +
+        "    * @return {String} method a return val\n" +
+        "    */\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  /**\n" +
+        "    * Describe method a\n" +
+        "    * @param {String} aArg method a arg\n" +
+        "    * @return {String} method a return val\n" +
+        "    */\n" +
+        "  a: function(aArg) {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    // Comments should be moved along with their corresponding properties when only one has comments
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  // Comments for b\n" +
+        "  b: function(bArg) {},\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  a: function(aArg) {},\n" +
+        "  // Comments for b\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  b: function(bArg) {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  // Comments for a\n" +
+        "  a: function(aArg) {},\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    // JSDocs should be moved along with their corresponding properties when only one has JSDocs
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  a: function(aArg) {},\n" +
+        "  /**\n" +
+        "    * Describe method b\n" +
+        "    * @param {String} bArg method b arg\n" +
+        "    * @return {String} method b return val\n" +
+        "    */\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
+    },
+    {
+      code:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  b: function(bArg) {},\n" +
+        "  /**\n" +
+        "    * Describe method a\n" +
+        "    * @param {String} aArg method a arg\n" +
+        "    * @return {String} method a return val\n" +
+        "    */\n" +
+        "  a: function(aArg) {},\n" +
+        "});",
+      output:
+        "Polymer({\n" +
+        "  is: '',\n" +
+        "  behaviors: [],\n" +
+        "  properties: {},\n" +
+        "  observers: [],\n" +
+        "  listeners: {},\n" +
+        "  created: function() {},\n" +
+        "  ready: function() {},\n" +
+        "  attached: function() {},\n" +
+        "  detached: function() {},\n" +
+        "  attributeChanged: function() {},\n" +
+        "  /**\n" +
+        "    * Describe method a\n" +
+        "    * @param {String} aArg method a arg\n" +
+        "    * @return {String} method a return val\n" +
+        "    */\n" +
+        "  a: function(aArg) {},\n" +
+        "  b: function(bArg) {},\n" +
+        "});",
+      errors: [
+        "Expected Polymer component keys to be in standard order and all other keys to be in ascending order. 'a' should be before 'b'.",
+      ],
     },
   ],
 });
